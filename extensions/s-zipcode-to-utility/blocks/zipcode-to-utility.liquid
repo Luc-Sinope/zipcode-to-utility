@@ -1,0 +1,175 @@
+{% schema %}
+{
+  "name": "[S] Zipcode To Utility",
+  "target": "body",
+  "settings": [],
+  "javascript" : "codes-postaux-finder.js",
+  "stylesheet" : "codes-postaux-finder.css"
+}
+{% endschema %}
+
+
+<script id="detect-with-zipcode">
+
+const registered_utility_list = [{
+  "utility"			     :	"Seattle City Light",
+  "titre_utility"		 :	"Seattle City Light",
+  "slug_de_utility"	     :	"",
+  "province"			 :	"WA",
+  "page_rabais_fr"	     :	"https://www.sinopetech.com/pages/rabais-seattle-city-lights/",
+  "page_rabais_en"	     :	"https://www.sinopetech.com/en/pages/seattle-city-lights-rebates",
+  "utility_logo"		 :	"https:////www.sinopetech.com/cdn/shop/files/Seattle_City_Light__logo_581aa772-e832-43b7-aa96-1601e53c7366.svg?v=1718829017&width=400"
+},{
+  "utility"			     :	"Puget Sound Energy",
+  "titre_utility"		 :	"Puget Sound Energy",
+  "slug_de_utility"	     :	"",
+  "province"			 :	"WA",
+  "page_rabais_fr"	     :	"https://www.sinopetech.com/pages/eco-sinope-puget-sound-energy-flex-smart",
+  "page_rabais_en"	     :	"https://www.sinopetech.com/en/pages/eco-sinope-puget-sound-energy-flex-smart",
+  "utility_logo"		 :	"https:////www.sinopetech.com/cdn/shop/files/logo-puget-sound-energy-flex-smart-fond_blanc-01.png?v=1727978407&width=400"
+},{
+  "utility"              :	"BC Hydro",
+  "titre_utility"		 :	"BC Hydro - Peak Saver",
+  "slug_de_utility"	     :	"",
+  "province"			 :	"BC",
+  "page_rabais_fr"	     :	"https://www.sinopetech.com/pages/bchydro",
+  "page_rabais_en"	     :	"https://www.sinopetech.com/en/pages/bchydro",
+  "utility_logo"		 :	"https:////www.sinopetech.com/cdn/shop/files/Logo-BC_Hydro_150px.png?v=1750685974&width=400"
+},{
+  "utility"			     :	"Efficiency Nova Scotia",
+  "titre_utility"		 :	"Efficiency Nova Scotia - Eco Shift",
+  "slug_de_utility"	     :	"",
+  "province"			 :	"NS",
+  "page_rabais_fr"	     :	"https://www.sinopetech.com/pages/efficiency-ns",
+  "page_rabais_en"	     :	"https://www.sinopetech.com/en/pages/efficiency-ns",
+  "utility_logo"		 :	"https:////www.sinopetech.com/cdn/shop/files/efficiency-ns-logo.svg?v=1729713322&width=400"
+},{
+  "utility"			     :	"efficiencyPEI",
+  "titre_utility"		 :	"efficiencyPEI",
+  "slug_de_utility"	        :	"",
+  "province"			 :	"PE",
+  "page_rabais_fr"	     :	"https://www.sinopetech.com/pages/rabais-efficiency-pei",
+  "page_rabais_en"	     :	"https://www.sinopetech.com/en/pages/efficiencypei-rebate-program",
+  "utility_logo"		 :	"https:////www.sinopetech.com/cdn/shop/files/Efficiency_pei_logo.png?v=1746453625&width=400"
+},{
+  "utility"			     :	"Hydro-Québec",
+  "titre_utility"		 :	"Hydro-Québec - Hilo",
+  "slug_de_utility"	     :	"",
+  "province"			 :	"QC",
+  "page_rabais_fr"	     :	"https://www.sinopetech.com/pages/hilo",
+  "page_rabais_en"	     :	"https://www.sinopetech.com/en/pages/hilo",
+  "utility_logo"		 :	"https:////www.sinopetech.com/cdn/shop/files/Hydro-Quebec_logo-1-1.svg?v=1718829468&width=400"
+},{
+  "utility"			     :	"NB Power",
+  "titre_utility"		 :	"SaveenergyNB",
+  "slug_de_utility"	     :	"",
+  "province"			 :	"NB",
+  "page_rabais_fr"	     :	"https://www.sinopetech.com/pages/energienb",
+  "page_rabais_en"	     :	"https://www.sinopetech.com/en/pages/nb-power",
+  "utility_logo"		 :	"https:////www.sinopetech.com/cdn/shop/files/Logo_saveenergyNB_fonce-ENG.png?v=1772203191&width=400"
+}]
+
+
+  var utility_list_for_zipfinder = []
+
+  window.addEventListener( "load", function(){
+    
+    registered_utility_list.forEach( (utility) => {
+    
+      utility_list_for_zipfinder.push( {
+        "utility"			: utility.utility,
+        "titre_utility"		: utility.titre_utility,
+        "slug_de_utility"	: utility.slug_de_utility,
+        "province"			: utility.province,
+        "page_rabais_fr"	: utility.page_rabais_fr,
+        "page_rabais_en"	: utility.page_rabais_en,
+        "utility_logo"		: utility.utility_logo
+      })
+    
+    })
+      
+    console.log( utility_list_for_zipfinder )
+    console.log( "filtered Liste" )
+  })
+  
+</script>
+
+<div id="zip-code-form-finder">
+
+  <div class="ferme-validation-zipcode"></div>
+
+  <h2 class="zip-finder-title">
+        {% if shop.locale == "fr" %}Trouvez les rabais et récompenses locaux{% else %}Find local rebates &amp; rewards{% endif %}
+  </h2>
+
+  
+  <div class="zip-finder-container">
+    
+    <a id="geolocalisation-btn" class="button button--primary button--sm icon-with-text" href="#" name="geolocalisation-btn" is="hover-link">
+      <span class="btn-fill" data-fill="" style="transform: translateY(var(--motion-translateY)); --motion-translateY: -76%;"></span>
+      <span class="btn-text">
+        <svg class="icon icon-sm sm:block" style="fill:#fff;" version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 290.7 290.7" xml:space="preserve">
+        <polygon points="279.8,132.4 158.3,132.4 158.3,10.9 132.4,10.9 132.4,132.4 10.9,132.4 10.9,158.3 132.4,158.3 132.4,279.8 
+          158.3,279.8 158.3,158.3 279.8,158.3 "></polygon>
+        <g>
+          <path d="M172.4,63.1c26,8.6,46.6,29.1,55.1,55.1h23.6c-9.8-38.5-40.2-68.9-78.7-78.7V63.1z"></path>
+          <path d="M227.6,172.4c-8.6,26-29.1,46.6-55.1,55.1v23.6c38.5-9.8,68.9-40.2,78.7-78.7H227.6z"></path>
+          <path d="M63.1,118.3c8.6-26,29.1-46.6,55.1-55.1V39.5c-38.5,9.8-68.9,40.2-78.7,78.7H63.1z"></path>
+          <path d="M118.3,227.6c-26-8.6-46.6-29.1-55.1-55.1H39.5c9.8,38.5,40.2,68.9,78.7,78.7V227.6z"></path>
+        </g>
+        </svg>
+      </span>
+      <span class="btn-loader">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </a>
+
+    <div class="tooltip">
+      <span class="tooltiptext">{% if shop.locale == "fr" %}utiliser la position GPS de mon adresse IP{% else %}Use my IP address GPS position{% endif %}</span>
+    </div>
+
+    <div class="zip-finder-input-container field flex items-center gap-4 relative">
+      <input id="zip-code-finder-input" placeholder="Enter your zip code here" coordinates="" type="text" class="input" value="">
+      <div class="zip-code-error">
+        
+          {% if shop.locale == "fr" %}Le code postal est invalide{% else %}The zip code / postal code is invalid{% endif %}
+        
+      </div>
+    </div>
+
+    <a id="verif-zip-code" class="verif-zip-eligibilite button button--primary button--sm icon-with-text" href="#" is="hover-link">
+      <span class="btn-fill" data-fill="" style="--motion-translateY: -76%; transform: translateY(var(--motion-translateY));"></span>
+      <span class="btn-text">{% if shop.locale == "fr" %}Vérifier les offres locales{% else %}Verify local offers{% endif %}</span>
+      <div class="loader"></div>
+    </a>
+
+    <div id="split-selector">
+      <h2>{% if shop.locale == "fr"%}Choisissez votre fournisseur d'électricité{% else %}Choose your power utility{% endif %}</h2>
+      <div class="split-utility-container"></div>
+    </div>
+
+    <p class="titre-du-bas">{% if shop.locale == "fr" %}We use your postal code to find offers and rebates from your local utility so you pay the lowest possible price.{% else %}Nous utilisons votre code postal pour trouver les offres et remises offertes par votre fournisseur d'énergie local, afin que vous puissiez payer le prix le plus bas possible.{% endif %}
+    </p>
+  </div>
+
+  <div class="zip-finder-results">
+
+    <h2>{% if shop.locale == "fr" %}Merci!{% else %}Thank you!{% endif %}</h2>
+
+    <div class="zip-finder-results-content">
+
+      <p class="results-">{% if shop.locale == "fr" %}Si applicable, les rabais couverts par votre fournisseur d'électricité local seront appliqués aux produits.{% else %}If applicable, local power utility discounts will be applied.{% endif %}</p>
+
+      <a id="fermer-zip-finder" class=" button button--primary button--sm icon-with-text" href="#" is="hover-link">
+        <span class="btn-fill" data-fill="" style="--motion-translateY: -76%; transform: translateY(var(--motion-translateY));"></span>
+        <span class="btn-text">{% if shop.locale == "fr" %}Rafraichir la page{% else %}Refresh page{% endif %}</span>
+      </a>
+
+    </div>
+
+  </div>
+  
+</div>
+
