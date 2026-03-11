@@ -1,257 +1,292 @@
 .btn-pastille-autre-fournisseur{
-		position:relative;
-		display:block;
-		margin-top:5px;
-		font-size: 0.75rem;
-	}
+	position:relative;
+	display:block;
+	margin-top:5px;
+	font-size: 0.75rem;
+}
 
-	#zip-code-form-finder{
-		position:fixed;
-		top:50%;
-		left:50%;
-		transform: translate(-50%, -40%);
-		padding: 2rem;
-		border-radius:10px;
-		background-color: #fff;
-		display:flex;
-		flex-direction:column;
-		justify-content:center;
-		align-items:center;
-		row-gap:1rem;
-		pointer-events:none;
-		opacity:0;
-		transition: opacity .3s linear, transform .5s ease-out, backdrop-filter .5s linear;
-		z-index:99999999;
-		width: min-content;
-		box-shadow: rgba(0, 0, 0, 1) 0 10px 27px -10px;
-	}
+#zip-code-form-finder{
+	position:fixed;
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -40%);
+	padding: 2rem;
+	border-radius:10px;
+	background-color: #fff;
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	align-items:center;
+	row-gap:1rem;
+	pointer-events:none;
+	opacity:0;
+	transition: opacity .3s linear, transform .5s ease-out, backdrop-filter .5s linear;
+	z-index:99999999;
+	width: min-content;
+	box-shadow: rgba(0, 0, 0, 1) 0 10px 27px -10px;
+}
 
-	body.affiche-zip-code-form-finder #zip-code-form-finder{
-		opacity:1;
-		pointer-events:auto;
-		transform: translate(-50%, -50%);
-	}
+#zip-code-form-finder input::placeholder {
+  font-size: 0.75rem!important;
+}
 
-	body.affiche-zip-code-form-finder{
-		overflow:hidden;
-	}
+body.affiche-zip-code-form-finder #zip-code-form-finder{
+	opacity:1;
+	pointer-events:auto;
+	transform: translate(-50%, -50%);
+}
 
-	body:before{
-		content:"";
-		position:fixed;
-		top:0;
-		left:0;
-		right:0;
-		bottom:0;
-		background-color: rgba(0, 0, 0, .3);
-		backdrop-filter: blur(8px) saturate(0.5);
-		z-index: 99;
-		transition: opacity .3s linear;
-		backdrop-filter: blur(10px) saturate(0.4);
-		pointer-events:none;
-		opacity:0;
-	}
+body.affiche-zip-code-form-finder{
+	overflow:hidden;
+}
 
-	body.affiche-zip-code-form-finder{
-		max-width: calc(100vw - 17px);
-	}
+body:before{
+	content:"";
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	background-color: rgba(0, 0, 0, .3);
+	backdrop-filter: blur(8px) saturate(0.5);
+	z-index: 99;
+	transition: opacity .3s linear;
+	backdrop-filter: blur(10px) saturate(0.4);
+	pointer-events:none;
+	opacity:0;
+}
 
-	body.affiche-zip-code-form-finder:before{
-		opacity:1;
-		pointer-events:auto;
-	}
-	
+body.affiche-zip-code-form-finder{
+	max-width: calc(100vw - 17px);
+}
 
-	#zip-code-form-finder .zip-finder-container{
-		display: flex;
-		flex-direction:row;
-		align-items:flex-start;
-		justify-content:flex-start;
-		column-gap:1rem;
-		row-gap: 1rem;
-		flex-wrap: wrap;
-		min-width: 587px;
-		position:relative;
-		transition:all .3s linear;
-	}
+body.affiche-zip-code-form-finder:before{
+	opacity:1;
+	pointer-events:auto;
+}
 
 
-	#zip-code-form-finder .zip-finder-container input {
-		background-color: #fff;
-		width: 250px;
-		border:solid 1px #969696;
-	}
+#zip-code-form-finder .zip-finder-container{
+	display: flex;
+	flex-direction:row;
+	align-items:flex-start;
+	justify-content:flex-start;
+	column-gap:1rem;
+	row-gap: 1rem;
+	flex-wrap: wrap;
+	min-width: 587px;
+	position:relative;
+	transition:all .3s linear;
+}
 
-	#zip-code-form-finder p{
-		color: #000;
-		text-align:left;
-		line-height:1.2;
-	}
 
-	a.verif-zip-eligibilite{
-		width: max-content;
-	}
+#zip-code-form-finder .zip-finder-container input {
+	background-color: #fff;
+	width: 250px;
+	border:solid 1px #969696;
+}
 
-	
-	#zip-code-form-finder .ferme-validation-zipcode {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		width: 10px;
-		height: 10px;
-		cursor: pointer;
-		display:flex;
-	}
+#zip-code-form-finder p{
+	color: #000;
+	text-align:left;
+	line-height:1.2;
+}
 
-	#zip-code-form-finder .ferme-validation-zipcode:before {
-		content: "";
-		position: absolute;
-		width: 2px;
-		height: 10px;
-		top: 0;
-		left: 5px;
-		-webkit-transform: rotate(45deg);
-		transform: rotate(45deg);
-		background-color: #000;
-	}
+a.verif-zip-eligibilite{
+	width: max-content;
+}
 
-	#zip-code-form-finder .ferme-validation-zipcode:after {
-		content: "";
-		position: absolute;
-		width: 2px;
-		height: 10px;
-		top: 0;
-		left: 5px;
-		-webkit-transform: rotate(-45deg);
-		transform: rotate(-45deg);
-		background-color: #000;
-	}
 
-	#zip-code-form-finder h2{
-		width: 100%;
-		text-align: left;
-		font-size: 2rem;
-		margin-bottom:1rem;
-	}
+#zip-code-form-finder .ferme-validation-zipcode {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 10px;
+	height: 10px;
+	cursor: pointer;
+	display:flex;
+}
 
-	a[name="geolocalisation-btn"] svg{
-		transition: fill .25s linear
-	}
+#zip-code-form-finder .ferme-validation-zipcode:before {
+	content: "";
+	position: absolute;
+	width: 2px;
+	height: 10px;
+	top: 0;
+	left: 5px;
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+	background-color: #000;
+}
 
-	a[name="geolocalisation-btn"]:hover svg{
-		fill: #000!important;
-	}
+#zip-code-form-finder .ferme-validation-zipcode:after {
+	content: "";
+	position: absolute;
+	width: 2px;
+	height: 10px;
+	top: 0;
+	left: 5px;
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	background-color: #000;
+}
 
-	#zip-code-form-finder .tooltip{
-		display: flex;
-		position: absolute;
-		top: -40px;
-		left: 30px;
-		color: #000;
-		background-color: #fdf2d6;
-		z-index: 9999;
-		padding: 10px;
-		border-radius: 10px;
-		pointer-events: none;
-		opacity: 0;
-		transform: translate(-20px, 5px) scale(0.9);
-		transition: opacity .1s linear, transform .1s ease-out;
-		box-shadow: rgba(0, 0, 0, 1) 0 10px 20px -10px;
-	}
+#zip-code-form-finder h2{
+	width: 100%;
+	text-align: left;
+	font-size: 2rem;
+	margin-bottom:1rem;
+}
 
-	#zip-code-form-finder .tooltip:before{
-		content: "";
-		width: 40px;
-		height: 18px;
-		transform: skew(-47deg) rotate(45deg);
-		background-color: #fdf2d6;
-		top: 19px;
-		left: 2px;
-		position: absolute;
-		z-index: -2;
-	}
+a[name="geolocalisation-btn"] svg{
+	transition: fill .25s linear
+}
 
-	#geolocalisation-btn:hover + .tooltip{
-		opacity:1;
-		transform: translate(0px, -10px) scale(1);
-	}
+a[name="geolocalisation-btn"]:hover svg{
+	fill: #000!important;
+}
 
-	#zip-code-form-finder.complete .zip-finder-container{
-		opacity:0;
-		pointer-events:none;
-		position:absolute;
-	}
+#zip-code-form-finder .tooltip{
+	display: flex;
+	position: absolute;
+	top: -40px;
+	left: 30px;
+	color: #000;
+	background-color: #fdf2d6;
+	z-index: 9999;
+	padding: 10px;
+	border-radius: 10px;
+	pointer-events: none;
+	opacity: 0;
+	transform: translate(-20px, 5px) scale(0.9);
+	transition: opacity .1s linear, transform .1s ease-out;
+	box-shadow: rgba(0, 0, 0, 1) 0 10px 20px -10px;
+}
 
-	#zip-code-form-finder .zip-finder-results{
-		pointer-events: none;
-		opacity:0;
-		transition:all .3s linear;
-		position:absolute;
-	}
+#zip-code-form-finder .tooltip:before{
+	content: "";
+	width: 40px;
+	height: 18px;
+	transform: skew(-47deg) rotate(45deg);
+	background-color: #fdf2d6;
+	top: 19px;
+	left: 2px;
+	position: absolute;
+	z-index: -2;
+}
 
-	#zip-code-form-finder.complete .zip-finder-results{
-		opacity:1;
-		pointer-events:auto;
-		position:relative;    
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: flex-start;
-		column-gap: 1rem;
-		row-gap: 1rem;
-		flex-wrap: wrap;
-		min-width: 587px;
-	}
+#geolocalisation-btn:hover + .tooltip{
+	opacity:1;
+	transform: translate(0px, -10px) scale(1);
+}
 
-	#zip-code-form-finder.complete h2{
-		display:none;
-	}
+#zip-code-form-finder.complete .zip-finder-container{
+	opacity:0;
+	pointer-events:none;
+	position:absolute;
+}
 
-	#zip-code-form-finder.complete .zip-finder-results h2{
-		display:flex!important;
-	}
+#zip-code-form-finder .zip-finder-results{
+	pointer-events: none;
+	opacity:0;
+	transition:all .3s linear;
+	position:absolute;
+}
 
-	#zip-code-form-finder .zip-code-error{
-		color: red;
-		font-size: 1rem;
-		text-align:center;
-		padding:5px;
-		width:100%;
-		pointer-events:none;
-		display:none;
-	}
+#zip-code-form-finder.complete .zip-finder-results{
+	opacity:1;
+	pointer-events:auto;
+	position:relative;    
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	column-gap: 1rem;
+	row-gap: 1rem;
+	flex-wrap: wrap;
+	min-width: 587px;
+}
 
-	#zip-code-form-finder.erreur .zip-code-error{
-		display:flex;
-	}
+#zip-code-form-finder.complete h2{
+	display:none;
+}
 
-	#zip-code-form-finder .zip-finder-results-content{
-		display: flex;
-		align-items: center;
-		justify-content: flex-start;
-		column-gap: 1rem;
-	}
+#zip-code-form-finder.complete .zip-finder-results h2{
+	display:flex!important;
+}
 
-	#fermer-zip-finder{
-		flex-shrink:0;
-	}
+#zip-code-form-finder .zip-code-error{
+	color: red;
+	font-size: 1rem;
+	text-align:center;
+	padding:5px;
+	width:100%;
+	pointer-events:none;
+	display:none;
+}
 
-	#zip-code-form-finder .zip-finder-input-container{
-		display: flex;
-		flex-direction: column;
-		row-gap: 0;
-		justify-content: center;
-		align-items: center;
-	}
+#zip-code-form-finder.erreur .zip-code-error{
+	display:flex!important;
+}
 
-	/* HTML: <div class="loader"></div> */
+#zip-code-form-finder .zip-finder-results-content{
+	display: flex!important;
+	align-items: center;
+	justify-content: flex-start;
+	column-gap: 1rem;
+}
+
+#fermer-zip-finder{
+	flex-shrink:0;
+}
+
+#zip-code-form-finder .zip-finder-input-container{
+	display: flex;
+	flex-direction: column;
+	row-gap: 0;
+	justify-content: center;
+	align-items: center;
+}
+
+/* HTML: <div class="loader"></div> */
+#zip-code-form-finder .loader {
+	display:flex;
+	width: calc(80px / cos(45deg));
+	height: 14px;
+	background: repeating-linear-gradient(-45deg,#ffffff 0 15px,#ffffff00 0 20px) left/200% 100%;
+	animation: unset;
+	width: 80%;
+	height: 10px;
+	opacity:0;
+	transition: all .2s linear;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 50px;
+	transition: all .3s linear;
+}
+
+#verif-zip-code:hover .loader{
+	background: repeating-linear-gradient(-45deg,#000000 0 15px,#00000000 0 20px) left/200% 100%;
+}
+
+@keyframes recherche {
+	100% {background-position:right}
+}
+
+/* HTML: <div class="loader"></div> */
+/*
 	#zip-code-form-finder .loader {
 		display:flex;
-		width: calc(80px / cos(45deg));
-		height: 14px;
-		background: repeating-linear-gradient(-45deg,#ffffff 0 15px,#ffffff00 0 20px) left/200% 100%;
+		width: 120px;
+		height: 20px;
+		-webkit-mask: linear-gradient(90deg,#000 70%,#0000 0) left/20% 100%;
+		background:
+		linear-gradient(#000 0 0) left -25% top 0 /20% 100% no-repeat
+		#ddd;
 		animation: unset;
-		width: 80%;
+		width: 50px;
 		height: 10px;
 		opacity:0;
 		transition: all .2s linear;
@@ -259,167 +294,136 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		border-radius: 50px;
-		transition: all .3s linear;
 	}
+*/
 
-	#verif-zip-code:hover .loader{
-		background: repeating-linear-gradient(-45deg,#000000 0 15px,#00000000 0 20px) left/200% 100%;
-	}
+#zip-code-form-finder.searching .loader{
+	opacity:0.6;
+	/*animation: l7 1s infinite steps(6);*/
+	animation: recherche 2s infinite linear;
+}
 
-	@keyframes recherche {
-		100% {background-position:right}
-	}
+#zip-code-form-finder.searching #verif-zip-code .btn-text{
+	opacity:0;
+}
 
-	/* HTML: <div class="loader"></div> */
-	/*
-		#zip-code-form-finder .loader {
-			display:flex;
-			width: 120px;
-			height: 20px;
-			-webkit-mask: linear-gradient(90deg,#000 70%,#0000 0) left/20% 100%;
-			background:
-			linear-gradient(#000 0 0) left -25% top 0 /20% 100% no-repeat
-			#ddd;
-			animation: unset;
-			width: 50px;
-			height: 10px;
-			opacity:0;
-			transition: all .2s linear;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-		}
-	*/
+#zip-code-form-finder.searching #verif-zip-code{
+	flex-grow: 1;
+}
 
-	#zip-code-form-finder.searching .loader{
-		opacity:0.6;
-		/*animation: l7 1s infinite steps(6);*/
-		animation: recherche 2s infinite linear;
-	}
-
-	#zip-code-form-finder.searching #verif-zip-code .btn-text{
-		opacity:0;
-	}
-
-	#zip-code-form-finder.searching #verif-zip-code{
-		flex-grow: 1;
-	}
-
-	@keyframes l7 {
-		100% {background-position: right -25% top 0}
-	}
+@keyframes l7 {
+	100% {background-position: right -25% top 0}
+}
 
 
-	#zip-code-form-finder #split-selector{
-		display:none;
-	}
+#zip-code-form-finder #split-selector{
+	display:none;
+}
 
-	#zip-code-form-finder.split-utility-select #split-selector{
-		display:flex;
-		flex-direction: column;
-    	width: 100%;
-	}
+#zip-code-form-finder.split-utility-select #split-selector{
+	display:flex;
+	flex-direction: column;
+	width: 100%;
+}
 
+#zip-code-form-finder .split-utility-container{
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	column-gap: 1rem;
+	justify-content: flex-start;
+}
+
+#zip-code-form-finder .split-image-container{
+	display: flex;
+	align-items: center;
+	height: 70px;
+	background-position: center;
+	background-size: 200px;
+	width: 100%;
+	background-repeat: no-repeat;
+}
+
+@media (max-width: 767px){
 	#zip-code-form-finder .split-utility-container{
-		display: flex;
-		flex-direction: row;
-		width: 100%;
-		column-gap: 1rem;
-		justify-content: flex-start;
-	}
-
-	#zip-code-form-finder .split-image-container{
-		display: flex;
-		align-items: center;
-		height: 70px;
-		background-position: center;
-		background-size: 200px;
-		width: 100%;
-		background-repeat: no-repeat;
-	}
-
-	@media (max-width: 767px){
-		#zip-code-form-finder .split-utility-container{
-			flex-direction: column;
-			row-gap: 1rem;
-		}
-		#zip-code-form-finder #split-selector h2{
-			font-size: 1.5rem;
-		}
-	}
-
-	#zip-code-form-finder .split-utility-item h3{
-		display:none;
-	}
-
-	#zip-code-form-finder .split-utility-item {
-		display: flex;
 		flex-direction: column;
-		align-items: center;
-		justify-content: space-between;
-		padding: 10px;
-		border: solid 1px #0000001a;
-		flex-grow: 1;
-		border-radius:4px;
-		cursor: pointer;
+		row-gap: 1rem;
+	}
+	#zip-code-form-finder #split-selector h2{
+		font-size: 1.5rem;
+	}
+}
+
+#zip-code-form-finder .split-utility-item h3{
+	display:none;
+}
+
+#zip-code-form-finder .split-utility-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px;
+	border: solid 1px #0000001a;
+	flex-grow: 1;
+	border-radius:4px;
+	cursor: pointer;
+}
+
+#zip-code-form-finder .split-utility-item:hover{
+	border: solid 1px #000!important;
+}
+
+#zip-code-form-finder .split-utility-item img.utility-split-choice {
+	width: 100%;
+}
+
+#zip-code-form-finder.split-utility-select #geolocalisation-btn,
+#zip-code-form-finder.split-utility-select .zip-finder-input-container,
+#zip-code-form-finder.split-utility-select #verif-zip-code,
+#zip-code-form-finder.split-utility-select h2.zip-finder-title{
+	display:none;
+}
+
+#zip-code-form-finder.split-utility-select .titre-du-bas{
+	display:none;
+}
+
+
+@media (max-width: 767px){
+	#zip-code-form-finder{
+		width: 90%;
+		max-width: 637px;
 	}
 
-	#zip-code-form-finder .split-utility-item:hover{
-		border: solid 1px #000!important;
+	#zip-code-form-finder .zip-finder-container{
+		min-width: unset;
 	}
 
-	#zip-code-form-finder .split-utility-item img.utility-split-choice {
-		width: 100%;
+	#zip-code-form-finder #verif-zip-code{
+		flex-grow:1;
 	}
 
-	#zip-code-form-finder.split-utility-select #geolocalisation-btn,
-	#zip-code-form-finder.split-utility-select .zip-finder-input-container,
-	#zip-code-form-finder.split-utility-select #verif-zip-code,
-	#zip-code-form-finder.split-utility-select h2.zip-finder-title{
-		display:none;
-	}
-
-	#zip-code-form-finder.split-utility-select .titre-du-bas{
-		display:none;
-	}
-
-
-	@media (max-width: 767px){
-		#zip-code-form-finder{
-			width: 90%;
-			max-width: 637px;
-		}
-
-		#zip-code-form-finder .zip-finder-container{
-			min-width: unset;
-		}
-
-		#zip-code-form-finder #verif-zip-code{
-			flex-grow:1;
-		}
-
-		#zip-code-form-finder #geolocalisation-btn{
-
-		}
-
-		#zip-code-form-finder.complete .zip-finder-results{
-			min-width: unset;
-		}
-
-		#zip-code-form-finder.complete .zip-finder-results h2{
-			margin-bottom: 0;
-    		justify-content: center;
-		}
-
-		#zip-code-form-finder .zip-finder-results-content{
-			flex-direction:column;
-			row-gap:1rem;
-		}
-
-		#zip-code-form-finder.complete .zip-finder-results .results-{
-			text-align:center;
-		}
+	#zip-code-form-finder #geolocalisation-btn{
 
 	}
+
+	#zip-code-form-finder.complete .zip-finder-results{
+		min-width: unset;
+	}
+
+	#zip-code-form-finder.complete .zip-finder-results h2{
+		margin-bottom: 0;
+		justify-content: center;
+	}
+
+	#zip-code-form-finder .zip-finder-results-content{
+		flex-direction:column;
+		row-gap:1rem;
+	}
+
+	#zip-code-form-finder.complete .zip-finder-results .results-{
+		text-align:center;
+	}
+
+}

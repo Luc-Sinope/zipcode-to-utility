@@ -25,37 +25,31 @@ window.addEventListener( "load", function(){
 
 	}, 1000)
 
-
-	detail_try_id = setInterval( function(){
-
-		if( document.querySelector( "details[is='details-dropdown']" ) != null ){
-
-			clearInterval( detail_try_id )
+	
+	document.body.addEventListener( "click", function(e){
+		
+		if( e.target.closest( 
+			`details[is='details-dropdown'] a[href='/pages/rabais'],
+			 details[is='details-dropdown'] a[href='/en/pages/thermostats-rebates'], 
+			 .affiche-utility-selector, 
+			 #MenuDrawer a.drawer__menu-item[href='/pages/rabais'], 
+			 #MenuDrawer a.drawer__menu-item[href='/en/pages/thermostats-rebates']` 
+		 ) != null )
+		 {
 			
-			var btn_page_rabais = document.querySelectorAll( "details[is='details-dropdown'] a[href='/pages/rabais'], details[is='details-dropdown'] a[href='/en/pages/thermostats-rebates'], .affiche-utility-selector, li.drawer__menu-group a.drawer__menu-item[href='/pages/rabais'], li.drawer__menu-group a.drawer__menu-item[href='/en/pages/thermostats-rebates']" )
+			e.preventDefault()
+			e.stopPropagation()
+			e.stopImmediatePropagation()
 			
-			btn_page_rabais.forEach( (btn) => {
-				btn.addEventListener( "click", function(e){
-					e.preventDefault()
-					e.stopPropagation()
-					e.stopImmediatePropagation()
-					console.log( "[1] display zip code form" )
-					document.body.classList.add( "affiche-zip-code-form-finder" )
-					if( document.body.classList.contains( "affiche-utility-popup" ) ){
-						document.body.classList.remove( "affiche-utility-popup" )
-					}
-				})
-			})
+			document.body.classList.add( "affiche-zip-code-form-finder" )
 			
-		}else{
-			if( details_try_index < 10 ){
-				details_try_index ++
-			}else{
-				clearInterval( detail_try_id )
+			if( document.body.classList.contains( "affiche-utility-popup" ) ){
+				document.body.classList.remove( "affiche-utility-popup" )
 			}
+			
 		}
-
-	}, 1000)
+		
+	})
 
 
 })
@@ -90,7 +84,6 @@ function ajoute_lien_autre_fournisseur_sur_pastille(){
 
 	btn_autre_fournisseur.addEventListener( "click", function(e){
 		e.preventDefault();
-		console.log( "[2] display zip code form" )
 		document.body.classList.add( "affiche-zip-code-form-finder" )
 	})
 
@@ -136,50 +129,38 @@ function ajoute_lien_autre_fournisseur_sur_pastille(){
 	.addEventListener( "click", function(e){
 		e.preventDefault();
 		window.location.reload()
-		// document.body.classList.remove( "affiche-zip-code-form-finder" )
-		// setTimeout( function(){
-		// 	document.querySelector( "#zip-code-form-finder" ).classList.remove( "erreur", "complete" )
-		// },2000)
 	})
 	
 
 	document.querySelector( "body" )
 	.addEventListener( "click", function(e){
-
-		console.log( "A" )
 		
 		if( e.target.getAttribute( "href" ) != undefined ){
 			if( 
 				e.target.getAttribute( "href" ) == "/pages/rabais" || 
 				e.target.getAttribute( "href" ) == "/en/pages/thermostats-rebates" 
 			){
-
-				console.log( "B" )
 				return;
 			}
 		}
 		
 		if( e.target.classList.contains( "btn-pastille-autre-fournisseur" ) ){
-			console.log( "C" )
 			return;
 		}
 		
 		if( e.target.closest("#zip-code-form-finder") != null ){
-			console.log( "D" )
 			return;
 		}
 		
 		document.body.classList.remove( "affiche-zip-code-form-finder" )
-
-		console.log( "E" )
-
+		
 		if( document.querySelectorAll( "#zip-code-form-finder" ).length > 0 ){
-
-			console.log( "F" )
+			
 			setTimeout( function(){
 				document.getElementById( "zip-code-form-finder" ).classList.remove( "searching", "split-utility-select" )
 				document.querySelector(".split-utility-container").innerHTML = ""
 			},300)
+			
 		}
 
 	})
@@ -226,25 +207,15 @@ async function fetch_offres_locales(){
 
 	// replace invalid chars with spaces
 	final_value = final_value.replace(/[^A-Z0-9\s-]/g, '').trim();
-
-	console.log( "final avant:")
-	console.log( final_value )
-
+	
 	// check si c'est un zip code usa si le premier caractere est un chiffre
 	const firstChar = final_value.charAt(0); // or myString[0]
 	
 	if (isNaN(parseInt(firstChar, 10))) {
-		console.log( "Canada Zip Code detected")
 		var part1 = final_value.slice(0, 3)
 		var part2 = final_value.slice(3)
 		final_value = part1 + " " + part2
 	}
-
-	console.log( "code postal a envoyer: ")
-	console.log( final_value )
-	console.log( "coordinates")
-	console.log( coordinates )
-
 	
 	var pays = "", region_code = "", auto_zip_code = "", longitude = "", latitude = ""
 
@@ -264,7 +235,7 @@ async function fetch_offres_locales(){
 
 }
 
-// 98155
+
 function display_split_utility_menu( is_split_utility, pays, region_code, final_value, longitude, latitude ){
 
 
@@ -291,11 +262,7 @@ function display_split_utility_menu( is_split_utility, pays, region_code, final_
 			e.preventDefault();
 			e.stopPropagation();
 			e.stopImmediatePropagation();
-
-			console.log( "split click" )
-			console.log( this )
-			console.log( e.target )
-
+			
 			const pays 			= this.getAttribute( "pays" )
 			const region 		= this.getAttribute( "region" )
 			const zip 			= this.getAttribute( "zip" )
@@ -321,10 +288,14 @@ async function find_split_utility( pays, region_code, final_value, longitude, la
 	})
 	.then(response => response.json())
 	.then( async result => {
-
-		console.log( "Result" )
-		console.log( result )
-
+		
+		if( !result.status ) {
+			document.querySelector( "#zip-code-form-finder" ).classList.remove( "searching" )
+			document.querySelector( "#zip-code-form-finder" ).classList.add( "erreur" )
+			document.querySelector( "#zip-code-form-finder" ).classList.remove( "complete" )
+			return;
+		}
+		
 		const pays = result.pays
 		const region_code = result.region_code
 		const zip = result.postal_code
@@ -335,11 +306,14 @@ async function find_split_utility( pays, region_code, final_value, longitude, la
 		const utility_data = utility_list_for_zipfinder.filter( (utility) => {
 			return utility.province == region_code
 		})
-
-		console.log( "utility_data" )
-		console.log( utility_data )
 		
-
+		if( utility_data.length == 0 ) {
+			document.querySelector( "#zip-code-form-finder" ).classList.remove( "searching" )
+			document.querySelector( "#zip-code-form-finder" ).classList.remove( "erreur" )
+			document.querySelector( "#zip-code-form-finder" ).classList.remove( "complete" )
+			return;
+		}
+		
 		if( utility_data.length > 1 ){
 
 			const multi_utilities_list = utility_data.map( (utility) => {
@@ -358,62 +332,7 @@ async function find_split_utility( pays, region_code, final_value, longitude, la
 			check_offre_locale( pays, region_code, final_value, longitude, latitude, utility_data[0].titre_utility )
 
 		}
-
-
-		// check_offre_locale( pays, region_code, final_value, longitude, latitude, utility )
-
-		/*
 		
-		if( result.region_code == "WA" ){
-
-			const is_split_utility = await check_multi_utility( zip )
-
-			console.log( is_split_utility )
-			console.log( is_split_utility.status )
-
-			if( is_split_utility.status == "split" ){
-				console.log( "split" )
-				 display_split_utility_menu( is_split_utility, pays, region_code, zip, longitude, latitude )
-
-			}else if( is_split_utility.status == "found" ){
-				console.log( "found" )
-				check_offre_locale( pays, region_code, zip, longitude, latitude, "Puget Sound Energy" )
-
-			}else if( is_split_utility.status == "none" ){
-				console.log( "none" )
-				check_offre_locale( pays, region_code, zip, longitude, latitude, "Seattle City Light" )
-
-			}
-
-		}else{
-
-			let utility = "";
-			switch( region_code ){
-				case "QC":
-					utility = "hydro_quebec"
-				break;
-				case "BC":
-					utility = "bc_hydro"
-				break;
-				case "NB":
-					utility = "nb_power"
-				break;
-				case "NS":
-					utility = "efficiency_nova_scotia"
-				break;
-				case "PE":
-					utility = "efficiency_pei"
-				break;
-				case "YT":
-					utility = "yukon_energy"
-				break;
-			}
-
-			check_offre_locale( pays, region_code, final_value, longitude, latitude, utility )
-			
-		}
-
-		*/
 
 	})
 
@@ -421,8 +340,6 @@ async function find_split_utility( pays, region_code, final_value, longitude, la
 
 
 async function check_offre_locale( pays, region_code, final_value, longitude, latitude, utility ){
-
-	console.log( "Check offre locale" )
 
 	var html_el = document.querySelector( "html" )
 	var langue  = html_el.getAttribute( "lang" )
@@ -434,7 +351,6 @@ async function check_offre_locale( pays, region_code, final_value, longitude, la
 		break;
 	}
 	
-
 	let coordinates = []
 	if( longitude != "" || latitude != "" ){
 		coordinates  = longitude + "," + latitude
@@ -453,57 +369,62 @@ async function check_offre_locale( pays, region_code, final_value, longitude, la
 	})
 	.then(response => response.json())
 	.then( async result => {
-
-		console.log( "region_code" )
-		console.log( result )
-
-		const region = region_code;
-
+		
 		let resultat
-
+		
 		let utility_page = ""
-		switch( region ){
-			case "QC":
-				utility_page = url_prefx + "/pages/hilo"
-			break;
-			case "BC":
-				utility_page = url_prefx + "/pages/eco-sinope-bc-hydro-peak-saver"
-			break;
-			case "NB":
-				switch( langue ){
-					case "fr":
-						utility_page = url_prefx + "/pages/energienb"
-					break;
-					case "en":
-						utility_page = url_prefx + "/pages/nb-power"
-					break;
-				}
-			break;
-			case "PE":
-				utility_page = url_prefx + "/pages/efficiencypei-rebate-program"
-			break;
-			case "NS":
-				utility_page = url_prefx + "/pages/rabais-efficiency-nova-scotia"
-			break;
-			case "YT":
-				utility_page = url_prefx + "/pages/eco-sinope-peak-smart"
-			break;
-			case "WA":
+		
+		if( result.region != null ){
+	
+			const region = region_code;
+	
+			switch( region ){
 				
-				if( utility == "Puget Sound Energy" ){
-					utility_page = url_prefx + "/pages/eco-sinope-puget-sound-energy-flex-smart"
-				}else if( utility == "Seattle City Light" ){
-					utility_page = url_prefx + "/pages/seattle-city-lights-rebates" 
-				}
-
-			break;
+				case "QC":
+					utility_page = url_prefx + "/pages/hilo"
+				break;
+				
+				case "BC":
+					utility_page = url_prefx + "/pages/eco-sinope-bc-hydro-peak-saver"
+				break;
+				
+				case "NB":
+					switch( langue ){
+						case "fr":
+							utility_page = url_prefx + "/pages/energienb"
+						break;
+						case "en":
+							utility_page = url_prefx + "/pages/nb-power"
+						break;
+					}
+				break;
+				
+				case "PE":
+					utility_page = url_prefx + "/pages/efficiencypei-rebate-program"
+				break;
+				
+				case "NS":
+					utility_page = url_prefx + "/pages/rabais-efficiency-nova-scotia"
+				break;
+				
+				case "YT":
+					utility_page = url_prefx + "/pages/eco-sinope-peak-smart"
+				break;
+				
+				case "WA":
+					
+					if( utility == "Puget Sound Energy" ){
+						utility_page = url_prefx + "/pages/eco-sinope-puget-sound-energy-flex-smart"
+					}else if( utility == "Seattle City Light" ){
+						utility_page = url_prefx + "/pages/seattle-city-lights-rebates" 
+					}
+	
+				break;
+			}
+			
 		}
 
 		if( result.status == true ){
-
-			// document.querySelector( "#zip-code-form-finder" ).classList.remove( "searching" )
-			// document.querySelector( "#zip-code-form-finder" ).classList.remove( "erreur" )
-			// document.querySelector( "#zip-code-form-finder" ).classList.add( "complete" )
 			
 			// ajoute les infos aux attributs du cart
 			const province_code = result.region;
@@ -529,17 +450,13 @@ async function check_offre_locale( pays, region_code, final_value, longitude, la
 			
 		}else{
 
-			// document.querySelector( "#zip-code-form-finder" ).classList.remove( "searching" )
-			// document.querySelector( "#zip-code-form-finder" ).classList.add( "erreur" )
-			// document.querySelector( "#zip-code-form-finder" ).classList.remove( "complete" )
-
-			// assure-toi que l'info n'est pas dans les attributs du client
-			resultat = await update_customer_zipcode( false )
+			document.querySelector( "#zip-code-form-finder" ).classList.remove( "searching" )
+			document.querySelector( "#zip-code-form-finder" ).classList.add( "erreur" )
+			document.querySelector( "#zip-code-form-finder" ).classList.remove( "complete" )
 
 		}
-
-		window.location.href = utility_page
-
+		
+		
 	})
 
 
@@ -805,9 +722,7 @@ function check_multi_utility( zip ){
 		if( found == true ){ 
 			return;
 		}
-
-		console.log(zip + " <> " + item_zip.zip + " / " + item_zip.type )
-	
+		
 		if( zip == item_zip.zip ){
 
 			if( item_zip.type == "split" ){
@@ -855,10 +770,7 @@ function check_multi_utility( zip ){
 
 
 async function update_customer_zipcode( confirmed_data ){
-
-	console.log( "update_customer_zipcode" )
-	console.log( confirmed_data )
-
+	
 	var html_el = document.querySelector( "html" )
 	var langue  = html_el.getAttribute( "lang" )
 	var url_prefx = "";
@@ -999,10 +911,7 @@ async function update_customer_zipcode( confirmed_data ){
 	.then( cart => {
 		return cart
 	})
-
-	console.log( "updated_cart" )
-	console.log( updated_cart )
-
+	
 	return updated_cart;
 
 }

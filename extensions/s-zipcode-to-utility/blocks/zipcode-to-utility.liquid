@@ -99,7 +99,7 @@ const registered_utility_list = [{
   <div class="ferme-validation-zipcode"></div>
 
   <h2 class="zip-finder-title">
-        {% if shop.locale == "fr" %}Trouvez les rabais et récompenses locaux{% else %}Find local rebates &amp; rewards{% endif %}
+        {% if shop.locale == "fr" %}Trouvez les rabais et récompenses locales{% else %}Find local rebates &amp; rewards{% endif %}
   </h2>
 
   
@@ -131,7 +131,7 @@ const registered_utility_list = [{
     </div>
 
     <div class="zip-finder-input-container field flex items-center gap-4 relative">
-      <input id="zip-code-finder-input" placeholder="Enter your zip code here" coordinates="" type="text" class="input" value="">
+      <input id="zip-code-finder-input" placeholder="{% if shop.locale == "fr" %}Entrez votre code postal ici{% else %}Enter your postal or zip code here{% endif %}" coordinates="" type="text" class="input" value="">
       <div class="zip-code-error">
         
           {% if shop.locale == "fr" %}Le code postal est invalide{% else %}The zip code / postal code is invalid{% endif %}
@@ -150,7 +150,7 @@ const registered_utility_list = [{
       <div class="split-utility-container"></div>
     </div>
 
-    <p class="titre-du-bas">{% if shop.locale == "fr" %}We use your postal code to find offers and rebates from your local utility so you pay the lowest possible price.{% else %}Nous utilisons votre code postal pour trouver les offres et remises offertes par votre fournisseur d'énergie local, afin que vous puissiez payer le prix le plus bas possible.{% endif %}
+    <p class="titre-du-bas">{% if shop.locale == "fr" %}Entrez votre code postal, et nous nous occupons de trouver les offres et les remises de votre fournisseur d'énergie pour vous garantir le prix le plus avantageux.{% else %}Your postal code helps us find local utility offers and rebates for the lowest price.{% endif %}
     </p>
   </div>
 
