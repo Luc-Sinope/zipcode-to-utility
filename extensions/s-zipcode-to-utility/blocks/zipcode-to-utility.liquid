@@ -11,6 +11,56 @@
 
 <script id="detect-with-zipcode">
 
+
+{%- capture utility_liste -%}[
+{%- for utility in shop.metaobjects.utility_discount_notice.values -%}
+{
+	"utility"			:	"{{ utility.utility_provider }}",
+	"titre_utility"		:	"{{ utility.titre_offre_utilities }}",
+	"slug_de_utility"	:	"{{ utility.slug_de_la_utility }}",
+	"province"			:	"{{utility.province_code }}",
+	"page_rabais_fr"	:	"{{ utility.url_page_rabais_fr }}",
+	"page_rabais_en"	:	"{{ utility.url_page_rabais_en }}",
+	"utility_logo"		:	"https://{{ utility.logo_find_utility_with_zip_code | image_url: width: 400 }}"
+}
+{%- unless forloop.last %},{% endunless -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+	const registered_utility_list = {{ utility_liste }}
+	console.log( registered_utility_list )
+	console.log( "Raw Liste" )
+	var utility_list_for_zipfinder = []
+
+	window.addEventListener( "load", function(){
+		
+		registered_utility_list.forEach( (utility) => {
+		
+			utility_list_for_zipfinder.push( {
+				"utility"			: utility.utility,
+				"titre_utility"		: utility.titre_utility,
+				"slug_de_utility"	: utility.slug_de_utility,
+				"province"			: utility.province,
+				"page_rabais_fr"	: utility.page_rabais_fr,
+				"page_rabais_en"	: utility.page_rabais_en,
+				"utility_logo"		: utility.utility_logo
+			})
+		
+		})
+			
+		console.log( utility_list_for_zipfinder )
+		console.log( "filtered Liste" )
+	})
+	
+</script>
+
+
+
+
+<script id="detect-with-zipcode">
+
+/*
 const registered_utility_list = [{
   "utility"			     :	"Seattle City Light",
   "titre_utility"		 :	"Seattle City Light",
@@ -91,7 +141,7 @@ const registered_utility_list = [{
     console.log( utility_list_for_zipfinder )
     console.log( "filtered Liste" )
   })
-  
+  */
 </script>
 
 <div id="zip-code-form-finder">
